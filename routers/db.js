@@ -77,10 +77,12 @@ router.get("/db", async function (req, res) {
         const page = parseInt(req.query.page) || 1; // 클라이언트에서 페이지 번호를 전달받음
         const perPage = 10; // 한 페이지에 보여줄 아이템 수
 
-        const totalCountQuery = "SELECT COUNT(*) as totalCount FROM CLOTHES";
+        const totalCountQuery = "SELECT COUNT(*) as TOTALCOUNT FROM CLOTHES";
         const totalCountResult = await selectDatabase(totalCountQuery);
-        const totalCount = parseInt(totalCountResult[0].totalCount);
+        const totalCount = parseInt(totalCountResult[0].TOTALCOUNT);
 
+        console.log(totalCount);
+        
         const totalPages = Math.ceil(totalCount / perPage); // 전체 페이지 수 계산
         const offset = (page - 1) * perPage; // 오프셋 계산
 
@@ -115,7 +117,7 @@ router.get("/db/1", async function (req, res) { //상의 리스트 출력
 
         const totalCountQuery = "SELECT COUNT(*) AS totalCount FROM CLOTHES WHERE category=1";
         const totalCountResult = await selectDatabase(totalCountQuery);
-        const totalCount = parseInt(totalCountResult[0].totalCount);
+        const totalCount = parseInt(totalCountResult[0].TOTALCOUNT);
 
         const totalPages = Math.ceil(totalCount / perPage); // 전체 페이지 수 계산
         const offset = (page - 1) * perPage; // 오프셋 계산
@@ -151,7 +153,7 @@ router.get("/db/2", async function (req, res) {
 
         const totalCountQuery = "SELECT COUNT(*) AS totalCount FROM CLOTHES WHERE category=2";
         const totalCountResult = await selectDatabase(totalCountQuery);
-        const totalCount = parseInt(totalCountResult[0].totalCount);
+        const totalCount = parseInt(totalCountResult[0].TOTALCOUNT);
 
         const totalPages = Math.ceil(totalCount / perPage);
         const offset = (page - 1) * perPage;
@@ -187,7 +189,7 @@ router.get("/db/3", async function (req, res) {
 
         const totalCountQuery = "SELECT COUNT(*) AS totalCount FROM CLOTHES WHERE category=3";
         const totalCountResult = await selectDatabase(totalCountQuery);
-        const totalCount = parseInt(totalCountResult[0].totalCount);
+        const totalCount = parseInt(totalCountResult[0].TOTALCOUNT);
 
         const totalPages = Math.ceil(totalCount / perPage);
         const offset = (page - 1) * perPage;
@@ -223,7 +225,7 @@ router.get("/db/4", async function (req, res) {
 
         const totalCountQuery = "SELECT COUNT(*) AS totalCount FROM CLOTHES WHERE category=4";
         const totalCountResult = await selectDatabase(totalCountQuery);
-        const totalCount = parseInt(totalCountResult[0].totalCount);
+        const totalCount = parseInt(totalCountResult[0].TOTALCOUNT);
 
         const totalPages = Math.ceil(totalCount / perPage);
         const offset = (page - 1) * perPage;
@@ -259,7 +261,7 @@ router.get("/db/5", async function (req, res) {
 
         const totalCountQuery = "SELECT COUNT(*) AS totalCount FROM CLOTHES WHERE category=5";
         const totalCountResult = await selectDatabase(totalCountQuery);
-        const totalCount = parseInt(totalCountResult[0].totalCount);
+        const totalCount = parseInt(totalCountResult[0].TOTALCOUNT);
 
         const totalPages = Math.ceil(totalCount / perPage);
         const offset = (page - 1) * perPage;

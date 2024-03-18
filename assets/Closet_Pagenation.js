@@ -12,13 +12,13 @@ async function fetchData() {
         let {totalPages, clothes} = await response.json();
         
         const maxPage = totalPages;
+        console.log(totalPages);
 
         //이미지 생성 함수
         function displayData(data) {
             while (contents.hasChildNodes()) {
                 contents.removeChild(contents.firstChild);
             }
-
             data.forEach(item => {
             const imageElement = new Image();
             imageElement.src = item.imageData;
@@ -27,28 +27,6 @@ async function fetchData() {
             });
         }
         
-        //페이지 이동 함수
-        const movePrevPage = () => {
-            page -= showBtn;
-            render(page);
-        };
-        
-        const moveNextPage = () => {
-            page += showBtn;
-            render(page);
-        };
-        
-        //이전, 다음 페이지 버튼 생성
-        const prev = document.createElement("button");
-        prev.classList.add("button", "prev");
-        prev.innerText = '<';
-        prev.addEventListener("click", movePrevPage);
-        
-        const next = document.createElement("button");
-        next.classList.add("button", "next");
-        next.innerText = '>';
-        next.addEventListener("click", moveNextPage);
-
         const makeBtn = (id) => {
             const btn = document.createElement("button");
             btn.classList.add("page");
@@ -61,7 +39,7 @@ async function fetchData() {
                     if (btn.dataset.num) btn.classList.remove("active");
                 });
             e.target.classList.add("active");
-            page = e.target.dataset.num;
+            page = parseInt(e.target.dataset.num);
             url = `http://192.168.57.188:8080/db?page=${page}`;
             fetch(url)
                 .then(response => response.json())
@@ -100,6 +78,31 @@ async function fetchData() {
         const render = (page) => {
             renderBtn(page);
         };
+
+        //페이지 이동 함수
+        const movePrevPage = () => {
+            page -= showBtn;
+            render(page);
+        };
+        
+        const moveNextPage = () => {
+            page += showBtn;
+            if (page > maxPage) {
+                page = maxPage;
+            }
+            render(page);
+        };
+        
+        //이전, 다음 페이지 버튼 생성
+        const prev = document.createElement("button");
+        prev.classList.add("page", "prev");
+        prev.innerText = '<';
+        prev.addEventListener("click", movePrevPage);
+        
+        const next = document.createElement("button");
+        next.classList.add("page", "next");
+        next.innerText = '>';
+        next.addEventListener("click", moveNextPage);
 
         displayData(clothes);
         render(page);
