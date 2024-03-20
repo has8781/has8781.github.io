@@ -6,7 +6,7 @@ async function fetchData() {
     try {
         let page = 1;
         const showBtn = 5;
-        let url = `http://122.38.11.25:8080/db?page=${page}`;
+        let url = `https://122.38.11.25:8080/db?page=${page}`;
 
         let response = await fetch(url);
         let {totalPages, clothes} = await response.json();
@@ -77,7 +77,7 @@ async function fetchData() {
                 });
             e.target.classList.add("active");
             page = parseInt(e.target.dataset.num);
-            url = `http://122.38.11.25:8080/db?page=${page}`;
+            url = `https://122.38.11.25:8080/db?page=${page}`;
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
