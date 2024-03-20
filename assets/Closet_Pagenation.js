@@ -6,7 +6,7 @@ async function fetchData() {
     try {
         let page = 1;
         const showBtn = 5;
-        let url = `http://192.168.57.188:8080/db?page=${page}`;
+        let url = `http://172.17.2.182:12000/db?page=${page}`;
 
         let response = await fetch(url);
         let {totalPages, clothes} = await response.json();
@@ -19,13 +19,50 @@ async function fetchData() {
             while (contents.hasChildNodes()) {
                 contents.removeChild(contents.firstChild);
             }
-            data.forEach(item => {
-            const imageElement = new Image();
-            imageElement.src = item.imageData;
-            //imageElement.setAttribute("draggable", "false"); // 드래그 불가능하도록 설정
-            contents.appendChild(imageElement);
+            data.forEach((item, index) => {
+                const imageElement = new Image(); // 새로운 이미지 요소 생성
+                imageElement.src = item.imageData; // 이미지 요소의 src 속성에 이미지 데이터 설정
+                imageElement.id = `image_${index}`; // 이미지 요소의 id 속성에 고유한 ID 설정
+                //imageElement.setAttribute("draggable", "false"); // 드래그 불가능하도록 설정
+                contents.appendChild(imageElement); // contents 요소에 이미지 요소 추가
             });
         }
+
+        // 이미지를 선택하고 삭제 요청을 보내는 함수
+        async function deleteSelectedImages() {
+            const selectedImages = document.querySelectorAll('.selected');
+            const ids = Array.from(selectedImages).map(image => image.id.split('_')[1]); // 이미지의 ID에서 숫자 부분만 추출
+            try {
+                const response = await fetch('/clothes_delete/:id', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ ids: ids }) // 선택된 이미지들의 ID를 배열로 전송
+                });
+                const result = await response.text();
+                console.log(result); // 서버에서 받은 응답 로그 출력
+                // 삭제 성공 후에는 화면에서 선택된 이미지들을 제거
+                selectedImages.forEach(image => {
+                    image.remove();
+                });
+            } catch (error) {
+                console.error('Error deleting images:', error);
+            }
+        }
+
+        // 삭제 버튼 클릭 이벤트 핸들러
+        document.getElementById('delete_btn').addEventListener('click', deleteSelectedImages);
+
+        // 다른 부분 클릭 시 선택 해제하는 이벤트 리스너 추가
+        document.addEventListener('click', event => {
+            if (!event.target.classList.contains('selectable')) {
+                const selectedImages = document.querySelectorAll('.selected');
+                selectedImages.forEach(image => {
+                    image.classList.remove('selected');
+                });
+            }
+        });
         
         const makeBtn = (id) => {
             const btn = document.createElement("button");
@@ -40,7 +77,7 @@ async function fetchData() {
                 });
             e.target.classList.add("active");
             page = parseInt(e.target.dataset.num);
-            url = `http://192.168.57.188:8080/db?page=${page}`;
+            url = `http://172.17.2.182:12000/db?page=${page}`;
             fetch(url)
                 .then(response => response.json())
                 .then(data => {

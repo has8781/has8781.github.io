@@ -19,10 +19,11 @@ async function readImage(imagePath) {
 
 // 데이터베이스 결과에서 이미지 URL을 가져와 실제 이미지 데이터로 변환하는 함수
 async function processImages(data) {
-    const promises = data.map(async (item) => {
+    const promises = data.map(async (item, index) => {
         const imagePath = path.join(__dirname, item.URL);
         const imageData = await readImage(imagePath);
         item.imageData = imageData; // 이미지 데이터 추가
+        item.id = index; // 각 이미지에 고유한 ID 부여
     });
 
     await Promise.all(promises);
