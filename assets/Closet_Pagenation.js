@@ -28,13 +28,34 @@ async function fetchData() {
             });
         }
 
-        // 이미지를 선택하고 삭제 요청을 보내는 함수
+/*         // 이미지를 선택하고 삭제 요청을 보내는 함수
         async function deleteSelectedImages() {
             const selectedImages = document.querySelectorAll('.selected');
             const ids = Array.from(selectedImages).map(image => image.id.split('_')[1]); // 이미지의 ID에서 숫자 부분만 추출
             try {
                 const response = await fetch('/clothes_delete/:id', {
                     method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ ids: ids }) // 선택된 이미지들의 ID를 배열로 전송
+                });
+                const result = await response.text();
+                console.log(result); // 서버에서 받은 응답 로그 출력
+                // 삭제 성공 후에는 화면에서 선택된 이미지들을 제거
+                selectedImages.forEach(image => {
+                    image.remove();
+                });
+            } catch (error) {
+                console.error('Error deleting images:', error);
+            }
+        } */
+        async function deleteSelectedImages() {
+            const selectedImages = document.querySelectorAll('.selected');
+            const ids = Array.from(selectedImages).map(image => image.id.split('_')[1]); // 이미지의 ID에서 숫자 부분만 추출
+            try {
+                const response = await fetch('/clothes_delete', {
+                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
