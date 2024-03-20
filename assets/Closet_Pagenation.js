@@ -6,7 +6,7 @@ async function fetchData() {
     try {
         let page = 1;
         const showBtn = 5;
-        let url = `hhttp://122.38.11.25:8080/db?page=${page}`;
+        let url = `http://122.38.11.25:8080/db?page=${page}`;
 
         let response = await fetch(url);
         let {totalPages, clothes} = await response.json();
