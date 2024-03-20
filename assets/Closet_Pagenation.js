@@ -54,7 +54,7 @@ async function fetchData() {
             const selectedImages = document.querySelectorAll('.selected');
             const ids = Array.from(selectedImages).map(image => image.id.split('_')[1]); // 이미지의 ID에서 숫자 부분만 추출
             try {
-                const response = await fetch('/clothes_delete', {
+                const response = await fetch('https://122.38.11.25:8080/clothes_delete', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
