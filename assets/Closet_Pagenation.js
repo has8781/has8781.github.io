@@ -51,26 +51,28 @@ async function fetchData() {
             }
         } */
         async function deleteSelectedImages() {
-            const selectedImages = document.querySelectorAll('.selected');
-            const ids = Array.from(selectedImages).map(image => image.id.split('_')[1]); // 이미지의 ID에서 숫자 부분만 추출
-            try {
-                const response = await fetch('https://122.38.11.25:8080/clothes_delete/:ids', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ ids: ids }) // 선택된 이미지들의 ID를 배열로 전송
-                });
-                const result = await response.text();
-                console.log(result); // 서버에서 받은 응답 로그 출력
-                // 삭제 성공 후에는 화면에서 선택된 이미지들을 제거
-                selectedImages.forEach(image => {
-                    image.remove();
-                });
-            } catch (error) {
-                console.error('Error deleting images:', error);
-            }
+        const selectedImages = document.querySelectorAll('.selected');
+        const ids = Array.from(selectedImages).map(image => image.id.split('_')[1]); // 이미지의 ID에서 숫자 부분만 추출
+        const idString = ids.join(','); // 선택된 이미지들의 ID를 쉼표로 구분된 문자열로 변환
+        const url = `https://122.38.11.25:8080/clothes_delete/${idString}`;
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ ids: ids }) // 선택된 이미지들의 ID를 배열로 전송
+            });
+            const result = await response.text();
+            console.log(result); // 서버에서 받은 응답 로그 출력
+            // 삭제 성공 후에는 화면에서 선택된 이미지들을 제거
+            selectedImages.forEach(image => {
+                image.remove();
+            });
+        } catch (error) {
+            console.error('Error deleting images:', error);
         }
+    }
 
         // 삭제 버튼 클릭 이벤트 핸들러
         document.getElementById('delete_btn').addEventListener('click', deleteSelectedImages);
