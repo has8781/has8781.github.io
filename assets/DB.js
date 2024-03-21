@@ -1,7 +1,7 @@
 
 async function fetchData() {
     try {
-      const response = await fetch('https://122.38.11.25:8080/db');
+      const response = await fetch('https://172.17.2.182:12000/db');
       const data = await response.json();
       displayData(data);
     } catch (error) {
