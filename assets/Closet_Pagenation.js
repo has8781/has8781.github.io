@@ -6,7 +6,7 @@ async function fetchData() {
     try {
         let page = 1;
         const showBtn = 5;
-        let url = `https://172.17.2.182:12000/db?page=${page}`;
+        let url = `https://192.168.167.17:12000/db?page=${page}`;
 
         let response = await fetch(url);
         let {totalPages, clothes} = await response.json();
@@ -54,7 +54,7 @@ async function fetchData() {
         const selectedImages = document.querySelectorAll('.selected');
         const ids = Array.from(selectedImages).map(image => image.id.split('_')[1]); // 이미지의 ID에서 숫자 부분만 추출
         const idString = ids.join(','); // 선택된 이미지들의 ID를 쉼표로 구분된 문자열로 변환
-        const url = `https://172.17.2.182:12000/clothes_delete/${idString}`;
+        const url = `https://192.168.167.17:12000/clothes_delete/${idString}`;
         try {
             const response = await fetch(url, {
                 method: 'POST',
@@ -100,7 +100,7 @@ async function fetchData() {
                 });
             e.target.classList.add("active");
             page = parseInt(e.target.dataset.num);
-            url = `https://172.17.2.182:12000/db?page=${page}`;
+            url = `https://192.168.167.17:12000/db?page=${page}`;
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
