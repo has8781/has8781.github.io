@@ -100,7 +100,7 @@ async function fetchData() {
                 });
             e.target.classList.add("active");
             page = parseInt(e.target.dataset.num);
-            url = `https://122.38.11.25:8080/db?page=${page}`;
+            url = `https://172.17.2.182:12000/db?page=${page}`;
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
