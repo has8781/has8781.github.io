@@ -289,7 +289,7 @@ router.get("/db/5", async function (req, res) {
     }
 });
 
-/* router.delete('/clothes_delete/:id', async (req, res) => {
+router.post('/clothes_delete/:id', async (req, res) => {
     const id = req.params.id; // 클라이언트가 요청한 id를 받음
     const query = `DELETE FROM CLOTHES WHERE ID = :id`;
     try {
@@ -301,11 +301,11 @@ router.get("/db/5", async function (req, res) {
         res.status(500).send("Internal Server Error, 맞는 ID인지 확인해주세요");
     }
 });
- */
 
-router.post('/clothes_delete/:ids', async (req, res) => {
-    const ids = req.body.ids; // 클라이언트에서 전송한 선택된 이미지들의 ID 배열
-    const query = `DELETE FROM CLOTHES WHERE ID IN (${ids.join(',')})`; // 선택된 이미지들의 ID를 이용하여 삭제 쿼리 생성
+
+/* router.post('/clothes_delete/:ids', async (req, res) => {
+    const id = req.body.id; // 클라이언트에서 전송한 선택된 이미지들의 ID 배열
+    const query = `DELETE FROM CLOTHES WHERE ID IN (${id.join(',')})`; // 선택된 이미지들의 ID를 이용하여 삭제 쿼리 생성
     try {
         const result = await deleteFromDatabase(query);
         console.log(`${result} rows deleted.`);
@@ -314,6 +314,6 @@ router.post('/clothes_delete/:ids', async (req, res) => {
         console.error('Error deleting images from database:', error);
         res.status(500).send('Internal Server Error');
     }
-});
+}); */
 
 module.exports = router;

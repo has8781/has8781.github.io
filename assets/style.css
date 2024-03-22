@@ -229,3 +229,14 @@ li{
     align-items: center;
     padding-top: 20px;
 }
+
+.selected{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(103, 103, 103, 0.5);
+ /*    pointer-events: none; 이 요소를 클릭 이벤트의 타겟으로 쓰지 않음 
+    display: none; 초기에는 숨김  */
+}
