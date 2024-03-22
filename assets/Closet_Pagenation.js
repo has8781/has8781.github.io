@@ -54,6 +54,7 @@ async function fetchData() {
         const selectedImages = document.querySelectorAll('.selected');
         const ids = Array.from(selectedImages).map(image => image.id.split('_')[1]); // 이미지의 ID에서 숫자 부분만 추출
         const idString = ids.join(','); // 선택된 이미지들의 ID를 쉼표로 구분된 문자열로 변환
+        console.log(idString);
         const url = `https://192.168.57.17:12000/clothes_delete/${idString}`;
         try {
             const response = await fetch(url, {
