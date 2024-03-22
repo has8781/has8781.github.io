@@ -1,3 +1,12 @@
+img {
+    cursor: pointer;
+    transition: opacity 0.3s ease; /* opacity 속성에 대한 전환 효과 추가 */
+}
+
+img:hover {
+    opacity: 0.8; /* 마우스를 올렸을 때 투명도를 줄임 */
+}
+
 body{
     width: auto;
     height: 800px;
@@ -7,14 +16,6 @@ body{
     color: #222;
 }
 
-img {
-    cursor: pointer;
-    transition: opacity 0.3s ease; /* opacity 속성에 대한 전환 효과 추가 */
-}
-
-img:hover {
-    opacity: 0.8; /* 마우스를 올렸을 때 투명도를 줄임 */
-}
 a {
     color : #222;
     text-decoration: none;
@@ -270,14 +271,3 @@ li{
     align-items: center;
     padding-top: 20px;
 }
-
-/* .selected{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(103, 103, 103, 0.5);
-    pointer-events: none;
-    display: none; 
-} */

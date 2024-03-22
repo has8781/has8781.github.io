@@ -289,7 +289,7 @@ router.get("/db/5", async function (req, res) {
     }
 });
 
-router.post('/clothes_delete/:id', async (req, res) => {
+router.delete('/clothes_delete/:id', async (req, res) => {
     const id = req.params.id; // 클라이언트가 요청한 id를 받음
     const query = `DELETE FROM CLOTHES WHERE ID = :id`;
     try {
