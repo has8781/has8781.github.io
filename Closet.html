@@ -15,11 +15,35 @@
             </div>
             <div class="type">
                 <button class="type_btn">아우터</button>
-                <button class="type_btn">원피스</button>
-                <button class="type_btn">상의</button>
+                <div class="submenu">
+                    <a href="#">후드집업</a>
+                    <a href="#">바람막이</a>
+                </div>
+            </div>
+            <div class="type">
+                <button class="type_btn dress">원피스</button>
+                <div class="submenu">
+                    <a href="mini_dress">미니원피스</a>
+                    <a href="#">롱원피스</a>
+                </div>
+            </div>
+            <div class="type">
+                <button class="type_btn shirts">상의</button>
+                <div class="submenu">
+                    <a href="#">후드티</a>
+                    <a href="#">긴팔</a>
+                    <a href="#">반팔</a>
+                </div>
+            </div>
+            <div class="type">
                 <button class="type_btn">하의</button>
-                <button class="type_btn">악세서리</button>
-                <button class="type_btn">신발</button>
+                <div class="submenu">
+                    <a href="#">청바지</a>
+                    <a href="#">면바지</a>
+                    <a href="#">반바지</a>
+                    <a href="#">롱스커트</a>
+                    <a href="#">미니스커트</a>
+                </div>
             </div>
             <div>
                 <a href="signup.html"><button class="btn_side" id="signup_btn">등록</button></a>
@@ -27,16 +51,11 @@
             </div>
         </div>
         
-        <div class="closet contents" onclick="toggleSelection(this)"">
+        <div class="closet contents">
 
         </div>
         <div class="under_page page_btn"></div>
     </div>
-    <script>
-        function toggleSelection(id) {
-            id.classList.toggle('selected'); // 이미지에 'selected' 클래스를 토글
-        }
-    </script>
     <script src="assets/Closet_Pagenation.js"></script>
 </body>
 </html>

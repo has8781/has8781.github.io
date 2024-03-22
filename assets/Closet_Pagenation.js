@@ -28,6 +28,21 @@ async function fetchData() {
             });
         }
 
+/*         document.addEventListener("DOMContentLoaded", function() {
+            const images = document.querySelectorAll('.closet .contents img');
+        
+            images.forEach(function(img) {
+                img.addEventListener('click', function() {
+                    // 이미지를 클릭할 때마다 toggleSelection 함수 호출
+                    toggleSelection(img.id);
+                });
+            });
+        });
+
+        async function toggleSelection(id) {
+            id.classList.toggle('selected'); // 이미지에 'selected' 클래스를 토글
+        }
+ */
         // 이미지를 선택하고 삭제 요청을 보내는 함수
         async function deleteSelectedImages() {
             const selectedImages = document.querySelectorAll('.selected');
