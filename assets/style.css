@@ -1,5 +1,5 @@
 body{
-    width: 1280px;
+    width: auto;
     height: 800px;
     background-image: linear-gradient(120deg, #88b1f2 0%, #87d0f2 100%);
     padding: 30px;
@@ -15,15 +15,12 @@ li{
 
 .header{
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     padding-top: 20px;
 }
 
 .container{
-    /*display: flex;
-    flex-direction: column;
-    height: 100vh;*/
     height: 800px;
     background-color: white;
     border-radius: 4px;
@@ -160,6 +157,23 @@ li{
     background-color: rgb(199, 199, 199);
 }
 
+.type{
+    margin-right: 20px;
+}
+
+.type_btn{
+    border: none;
+    border-radius: 10px;
+    width: 100px;
+    height: 40px;
+    font-size: 20px;
+    color: black;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    margin-right: 10px;
+    font-weight: bold;
+}
+
 .closet{
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(20%, auto));
@@ -169,7 +183,6 @@ li{
 .contents img{
     width: 170px;
     height: auto;
-    pointer-events: auto;
 }
 
 .under_page{
@@ -208,4 +221,11 @@ li{
     height: 640px;
     margin-top: 10px;
     position: absolute;
+}
+
+.capture_btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
 }
