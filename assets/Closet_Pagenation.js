@@ -1,6 +1,7 @@
 const contents = document.querySelector('.contents');
 const pageBtn = document.querySelector('.page_btn');
 
+
 let selectedid = 0;
 
 //데이터 가져오기 함수
@@ -8,7 +9,7 @@ async function fetchData() {
     try {
         let page = 1;
         const showBtn = 5;
-        let url = `https://192.168.57.17:12000/db?page=${page}`;
+        let url = `https://172.20.10.7:12000/db?page=${page}`;
 
         let response = await fetch(url);
         let {totalPages, clothes} = await response.json();
@@ -29,26 +30,56 @@ async function fetchData() {
                     selectedid = imageElement.id;
                     console.log(selectedid);
                   });
-                //imageElement.setAttribute("draggable", "false"); // 드래그 불가능하도록 설정
                 contents.appendChild(imageElement); // contents 요소에 이미지 요소 추가
             });
         }
 
-/*         document.addEventListener("DOMContentLoaded", function() {
-            const images = document.querySelectorAll('.closet .contents img');
-        
-            images.forEach(function(img) {
-                img.addEventListener('click', function() {
-                    // 이미지를 클릭할 때마다 toggleSelection 함수 호출
-                    toggleSelection(img.id);
+        document.querySelectorAll('.type_btn').forEach(btn => {
+            btn.addEventListener("click", function (e) {
+                    Array.prototype.forEach.call(pageBtn.children, (btn) => {
+                        if (btn.dataset.num) btn.classList.remove("active");
+                    });
+                    const categoryId = this.getAttribute('id'); // 카테고리 아이디를 가져옴
+                    console.log(categoryId);
+                    url = `https://172.20.10.7:12000/db/category?page=${page}&category=${categoryId}`;
+                    fetch(url)
+                        .then(response => response.json())
+                        .then(data => {
+                            displayData(data.clothes);
+                        })
+                        .catch(error => {
+                            console.error('Error fetching data:', error);
+                        });
+                    e.target.classList.add("active");
+                    page = parseInt(e.target.dataset.num);
                 });
             });
-        });
 
-        async function toggleSelection(id) {
-            id.classList.toggle('selected'); // 이미지에 'selected' 클래스를 토글
-        }
- */
+        // 메인 버튼 생성 함수
+        const makeBtn = (id) => {
+            const btn = document.createElement("button");
+            btn.classList.add("page");
+            btn.dataset.num = id;
+            btn.innerText = id;
+            btn.addEventListener("click", function (e) {
+                Array.prototype.forEach.call(pageBtn.children, (btn) => {
+                    if (btn.dataset.num) btn.classList.remove("active");
+                });
+                e.target.classList.add("active");
+                page = parseInt(e.target.dataset.num);
+                url = `https://172.20.10.7:12000/db?page=${page}`;
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        displayData(data.clothes);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching data:', error);
+                    });
+                });
+            return btn;
+        };
+
         // 이미지를 선택하고 삭제 요청을 보내는 함수
         async function deleteSelectedImages() {
             const selectedImages = document.querySelector('.selected');
@@ -57,22 +88,12 @@ async function fetchData() {
             console.log(selectedid);
 
             if(confirmflag){
-                // selectedImages.addEventListener("click", function() {
-                //     id = selectedImages.id;
-                //   });
                 if(selectedid != 0){
-                    const url = `https://192.168.57.17:12000/clothes_delete/${selectedid}`;
+                    const url = `https://172.20.10.7:12000/clothes_delete/${selectedid}`;
                     try {
                         fetch(url, {
                             method: 'DELETE',
                         });
-                        //const result = await response.text();
-                        //console.log(result); // 서버에서 받은 응답 로그 출력
-                        // 삭제 성공 후에는 화면에서 선택된 이미지들을 제거
-                        // selectedImages.forEach(image => {
-                        //     image.remove();
-                        // });
-                        
                     } catch (error) {
                         console.error('Error deleting images:', error);
                     }
@@ -96,32 +117,6 @@ async function fetchData() {
                 });
             }
         });
-        
-        const makeBtn = (id) => {
-            const btn = document.createElement("button");
-            btn.classList.add("page");
-            btn.dataset.num = id;
-            btn.innerText = id;
-        
-            // 페이지 버튼 클릭 이벤트 (특정 버튼 클릭 시 해당 페이지 버튼 활성화, 다른 버튼 비활성화시키는 반복문)
-            btn.addEventListener("click", (e) => {
-                Array.prototype.forEach.call(pageBtn.children, (btn) => {
-                    if (btn.dataset.num) btn.classList.remove("active");
-                });
-            e.target.classList.add("active");
-            page = parseInt(e.target.dataset.num);
-            url = `https://192.168.57.17:12000/db?page=${page}`;
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    displayData(data.clothes);
-                })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
-                });
-            });
-            return btn;
-        };
 
         const renderBtn = (page) => {
             //버튼 리스트 초기화
