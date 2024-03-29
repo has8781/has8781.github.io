@@ -9,7 +9,7 @@ async function fetchData() {
     try {
         let page = 1;
         const showBtn = 5;
-        let url = `https://172.20.10.7:12000/db?page=${page}`;
+        let url = `https://122.38.11.25:8080/db?page=${page}`;
 
         let response = await fetch(url);
         let {totalPages, clothes} = await response.json();
@@ -41,7 +41,7 @@ async function fetchData() {
                     });
                     const categoryId = this.getAttribute('id'); // 카테고리 아이디를 가져옴
                     console.log(categoryId);
-                    url = `https://172.20.10.7:12000/db/category?page=${page}&category=${categoryId}`;
+                    url = `https://122.38.11.25:8080/db/category?page=${page}&category=${categoryId}`;
                     fetch(url)
                         .then(response => response.json())
                         .then(data => {
@@ -67,7 +67,7 @@ async function fetchData() {
                 });
                 e.target.classList.add("active");
                 page = parseInt(e.target.dataset.num);
-                url = `https://172.20.10.7:12000/db?page=${page}`;
+                url = `https://122.38.11.25:8080/db?page=${page}`;
                 fetch(url)
                     .then(response => response.json())
                     .then(data => {
@@ -89,7 +89,7 @@ async function fetchData() {
 
             if(confirmflag){
                 if(selectedid != 0){
-                    const url = `https://172.20.10.7:12000/clothes_delete/${selectedid}`;
+                    const url = `https://122.38.11.25:8080/clothes_delete/${selectedid}`;
                     try {
                         fetch(url, {
                             method: 'DELETE',
@@ -101,10 +101,10 @@ async function fetchData() {
                 else{
                     alert(`삭제를 원하는 옷을 클릭하세요.`);
                 }
-                
             }
+            alert(`삭제가 완료되었습니다.`);
+            location.reload(true);
         }
-
         // 삭제 버튼 클릭 이벤트 핸들러
         document.getElementById('delete_btn').addEventListener('click', deleteSelectedImages);
         
